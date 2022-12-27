@@ -33,7 +33,7 @@ O valor das coordenadas das caixas prevista tx, ty..th são normalizados, valore
 </p>
 
 </a><div align="center">
-<a href="https://blog.paperspace.com/how-to-implement-a-yolo-object-detector-in-pytorch/">
+<a href="https://openaccess.thecvf.com/content_cvpr_2017/html/Hosang_Learning_Non-Maximum_Suppression_CVPR_2017_paper.html">
 <img src="https://github.com/Rhayron/YOLOv3_detection_segmentation/blob/main/assets/HowYoloWorks.png" width="50%"/>
 </div></a>
 
