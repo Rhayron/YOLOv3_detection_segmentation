@@ -22,6 +22,10 @@ Em sua terceira versão (Redmon e Farhadi, 2018), a YOLO funciona por meio da di
 Na YOLOv3, a grade padrão é uma matriz com 13 linhas e 13 colunas, correspondendo a 169 células, onde cada célula possui cinco âncoras, totalizando 845 previsões de possíveis de caixas delimitadoras. Cada caixa delimitadora é definida a partir de duas coordenadas relativas à matriz da imagem, correspondendo a posição central do objeto (“x” e “y”) e as duas dimensões de largura (“w”) e altura (“h”). A rede neural será capaz de prever objetos em áreas específicas da imagem a partir das âncoras distribuídas em cada célula.
 </p>
 
+</a><div align="center">
+<a href="https://www.instagram.com/ultralytics/">
+<img src="https://github.com/Rhayron/YOLOv3_detection_segmentation/blob/main/assets/dog.png">
+</div></a>
 
 Considerando o exemplo da Figura, a imagem de entrada é dividia em uma grade de células 13 x 13. Em seguida, a célula (na imagem de entrada) contendo o centro da caixa verdade, chamada de ground truth (caixa que realmente contém o objeto), é escolhida para ser a responsável pela previsão. Na Figura, a célula marcada em vermelho contém o centro da caixa ground truth, marcada em amarela, e será a responsável pela detecção do cachorro. Esta célula pode prever três caixas delimitadoras, ou seja, a YOLOv3 tem três âncoras, que resultam em previsão de três caixas delimitadoras por célula. A bounding box responsável por detectar o cão será aquela cuja âncora tem a maior IoU com a caixa verdade.
 
