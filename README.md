@@ -1,10 +1,10 @@
-# YOLOv3 & Random Forest aplicadas no monitoramento de equipamentos em subestações de energia elétrica
+# <div align="center">YOLOv3 & Random Forest aplicadas no monitoramento de equipamentos em subestações de energia elétrica</div>
 
 <p>
 Com o constante crescimento do sistema elétrico, se torna cada vez mais importante a eficiência no método de execução das manutenções nesses ambientes. A inspeção termográfica é uma dessas alternativas, pois é eficaz para a previsão de falhas nos equipamentos das subestações de energia. Porém, a segurança dos operadores e a necessidade de um grau de experiência elevado, faz com que a atividade se torne muito dispendiosa. A ideia central do presente trabalho é propor uma automatização parcial do processo das inspeções termográficas de subestações de energia elétrica utilizando a YOLOv3 e o ensemble floresta aleatória para detecção de equipamentos presentes em subestação de energia elétrica. Utilizando um banco de dados de imagens de chaves seccionadoras de uma subestação de energia elétrica, a tecnologia pode identificar e segmentar regiões de aquecimento de maneira satisfatória os equipamentos e com isso pode auxiliar as concessionárias de energia a tomarem decisões referentes à manutenção preditiva. A rede neural alcançou níveis de precisão acima dos 70%, o que mostra um desempenho satisfatório.
 </p>
 
-## <div align="center">Introdução</div>
+## <div>Introdução</div>
 <p>
 As subestações de energia elétrica (SE) constituem uma peça fundamental do sistema elétrico de potência, sendo responsáveis pela operação segura e confiável da rede elétrica (MAMEDE FILHO, 2021). A correta operação e manutenção dos equipamentos que compõem as subestações é tão importante quanto a expansão do sistema elétrico, o que permite manter sua eficiência alinhada com as necessidades crescentes dos consumidores.
 </p>
@@ -13,7 +13,7 @@ Algumas falhas que ocorrem em equipamentos de subestações estão geralmente as
 Em via disso, torna-se estratégico para as concessionárias de energia elétrica disporem de ferramentas que possibilitem a detecção inteligente e automática de equipamentos com falhas em subestações, promovendo a substituição das inspeções tradicionais de patrulha com alto coeficiente de risco e baixa eficiência.
 </p>
 
-## <div align="center">YOLO: detecção de objetos em tempo real</div>
+## <div>YOLO: detecção de objetos em tempo real</div>
 <p>
 Proposta por Redmon et al. (2016), a rede YOLO utiliza uma única rede neural convolucional na detecção e classificação de objetos. A popularidade deste método se deu pela sua alta velocidade de processamento e precisão nos resultados obtidos. A YOLO usa uma única CNN para prever as caixas delimitadoras e a probabilidade de classe para objetos detectados em uma determinada imagem de entrada. Uma única arquitetura é responsável por detectar e localizar os objetos em uma imagem, permitindo que a YOLO tenha um bom desempenho em situações de tempo real em comparação com os métodos mais antigos.
 </p>
@@ -49,7 +49,29 @@ Dessa forma a rede neural YOLO filtra as previsões através da definição de u
 
 Para cada uma das versões da YOLO, os autores também lançaram uma variante chamada “YOLO tiny”. As versões tiny são menores em comparação com as versões originais no número de camadas. Apesar de ser uma rede mais simples, são mais rápidas do que as versões originais, no entanto são menos precisas. Assim, as variantes tiny da YOLO têm sido frequentemente utilizadas em aplicações com o objetivo de se obter maior velocidade de processamento em troca de menor precisão nas detecções (LAROCA et al., 2019).
 
+
+### <div>YOLOv3</div>
+
 <p>
+Redmon e Farhadi (2018) lançaram a YOLOv3 como uma rede composta por 106 camadas, 53 para o backbone (“darknet-53”) e as outras 53 camadas responsáveis pela de detecção de objetos, mantendo a característica de ser uma rede neural totalmente convolucional.
+</p>
+Em comparação com YOLOv2, os autores aplicaram algumas alterações como classificação multi-rótulo, ou seja, um objeto passou a poder ser anexado a mais de uma classe (por exemplo, "árvore" e "pinheiro"), três escalas diferentes de previsão e aumento na quantidade de caixas de âncoras, o que, consequentemente, aumentou o número de caixas previstas para uma dada imagem de entrada.
+</p>
+Essa abordagem melhora a precisão da rede na detecção de pequenos objetos. Com essa nova configuração a imagem de entrada pode ser dividida em uma grade 13 × 13 para detectar objetos grandes, uma grade de células 26 × 26 para a detecção de objetos médios e uma grade 52 × 52 para os pequenos objetos.
+</p>
+Em vez de 5 âncoras por célula, a quantidade foi aumentada para 9, onde há 3 âncoras para cada escala. Enquanto o YOLOv2 pode prever 845 caixas delimitadoras, esta nova configuração permite que a YOLO preveja 10.647 caixas para cada imagem. O aumento no número de caixas previstas aliada ao aumento no número de camadas da rede, tornou a YOLOv3 mais lenta, sendo necessário maiores cronogramas de treinamento. No entanto, ela ainda é mais rápida que os principais concorrentes (Faster R-CNN, R-CNN, entre outros), como releva o Gráfico a seguir.
+
+</a><div width="2%" align="center">
+<a href="https://arxiv.org/abs/1804.02767">
+<img src="https://github.com/Rhayron/YOLOv3_detection_segmentation/blob/main/assets/YOLOv3_peformance.png" width="30%"/>
+</div></a>
+
+A YOLO v3 funciona no mesmo nível de outros detectores de última geração, como a RetinaNet, embora seja consideravelmente mais rápido, no benchmark COCO mAP 50. No entanto, a YOLO perde em benchmarks COCO mAP-50 com um valor mais alto de IoU, usado para filtrar o número de caixas detectadas.
+</p>
+
+
+
+</p>
 YOLOv3 🚀 is a family of object detection architectures and models pretrained on the COCO dataset, and represents <a href="https://ultralytics.com">Ultralytics</a>
  open-source research into future vision AI methods, incorporating lessons learned and best practices evolved over thousands of hours of research and development.
 </p>
