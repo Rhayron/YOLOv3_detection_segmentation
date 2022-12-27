@@ -63,7 +63,7 @@ Em vez de 5 âncoras por célula, a quantidade foi aumentada para 9, onde há 3 
 
 </a><div width="2%" align="center">
 <a href="https://arxiv.org/abs/1804.02767">
-<img src="https://github.com/Rhayron/YOLOv3_detection_segmentation/blob/main/assets/YOLOv3_peformance.png" width="30%"/>
+<img src="https://github.com/Rhayron/YOLOv3_detection_segmentation/blob/main/assets/YOLOv3_peformance.png" width="60%"/>
 </div></a>
 
 A YOLO v3 funciona no mesmo nível de outros detectores de última geração, como a RetinaNet, embora seja consideravelmente mais rápido, no benchmark COCO mAP 50. No entanto, a YOLO perde em benchmarks COCO mAP-50 com um valor mais alto de IoU, usado para filtrar o número de caixas detectadas.
