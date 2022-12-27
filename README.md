@@ -37,6 +37,18 @@ O valor das coordenadas das caixas prevista tx, ty..th são normalizados, valore
 <img src="https://github.com/Rhayron/YOLOv3_detection_segmentation/blob/main/assets/HowYoloWorks.png">
 </div></a>
 
+As probabilidades de classe representam as chances do objeto detectado ser pertencente a uma determinada classe (cão, gato, carro, chaves seccionadoras, etc). A função de perda na rede leva em consideração a pontuação de objetividade, a classificação de objetos e a regressão das coordenadas que está relacionada às dimensões da caixa delimitadora.
+</p>
+Dessa forma a rede neural YOLO filtra as previsões através da definição de uma pontuação de objetividade mínima (limite inferior). Além disso, durante o treinamento, uma técnica para filtrar as previsões do detector de objetos chamada Non-maximum Suppression (NMS)[ Non-Maximum Suppression (ou supressão não máxima) é uma técnica usada em várias tarefas de visão computacional. É uma classe de algoritmos utilizadas para selecionar uma entidade (por exemplo, caixas delimitadoras) de muitas entidades sobrepostas, segundo alguns critérios de seleção. Os critérios comumente utilizados são alguma forma de medida de sobreposição (por exemplo, Intersecção sobre União - IoU).] é aplicado para remover previsões redundantes. As previsões que correspondem ao mesmo objeto são comparadas e apenas aquelas com a maior confiança são mantidas, conforme mostrado na Figura abaixo.
+</p>
+
+</a><div align="center">
+<a href="https://blog.paperspace.com/how-to-implement-a-yolo-object-detector-in-pytorch/">
+<img src="https://github.com/Rhayron/YOLOv3_detection_segmentation/blob/main/assets/NMS.png">
+</div></a>
+
+Para cada uma das versões da YOLO, os autores também lançaram uma variante chamada “YOLO tiny”. As versões tiny são menores em comparação com as versões originais no número de camadas. Apesar de ser uma rede mais simples, são mais rápidas do que as versões originais, no entanto são menos precisas. Assim, as variantes tiny da YOLO têm sido frequentemente utilizadas em aplicações com o objetivo de se obter maior velocidade de processamento em troca de menor precisão nas detecções (LAROCA et al., 2019).
+
 <p>
 YOLOv3 🚀 is a family of object detection architectures and models pretrained on the COCO dataset, and represents <a href="https://ultralytics.com">Ultralytics</a>
  open-source research into future vision AI methods, incorporating lessons learned and best practices evolved over thousands of hours of research and development.
