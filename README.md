@@ -23,11 +23,19 @@ Na YOLOv3, a grade padrão é uma matriz com 13 linhas e 13 colunas, corresponde
 </p>
 
 </a><div align="center">
-<a href="https://www.instagram.com/ultralytics/">
+<a href="https://blog.paperspace.com/how-to-implement-a-yolo-object-detector-in-pytorch/">
 <img src="https://github.com/Rhayron/YOLOv3_detection_segmentation/blob/main/assets/dog.png">
 </div></a>
 
 Considerando o exemplo da Figura, a imagem de entrada é dividia em uma grade de células 13 x 13. Em seguida, a célula (na imagem de entrada) contendo o centro da caixa verdade, chamada de ground truth (caixa que realmente contém o objeto), é escolhida para ser a responsável pela previsão. Na Figura, a célula marcada em vermelho contém o centro da caixa ground truth, marcada em amarela, e será a responsável pela detecção do cachorro. Esta célula pode prever três caixas delimitadoras, ou seja, a YOLOv3 tem três âncoras, que resultam em previsão de três caixas delimitadoras por célula. A bounding box responsável por detectar o cão será aquela cuja âncora tem a maior IoU com a caixa verdade.
+</p>
+O valor das coordenadas das caixas prevista tx, ty..th são normalizados, valores entre 0 e 1. A YOLO prevê deslocamentos das coordenadas do centro da caixa delimitação em relação ao canto superior esquerdo da célula de grade que está prevendo o objeto, normalizado pelas dimensões da célula. Para o caso da Figura abaixo, se a previsão para o centro é (0,4, 0,7), então isso significa que o centro está em (6,4, 6,7) na grade 13 x 13, considerando que as coordenadas superior esquerda da célula vermelha são (6,6). O valor de B representa o número de caixas delimitadoras que cada célula pode prever. Em outras palavras, cada uma dessas caixas delimitadoras B pode se especializar na detecção de um certo tipo de objeto.
+</p>
+
+</a><div align="center">
+<a href="https://blog.paperspace.com/how-to-implement-a-yolo-object-detector-in-pytorch/">
+<img src="https://github.com/Rhayron/YOLOv3_detection_segmentation/blob/main/assets/HowYoloWorks.png">
+</div></a>
 
 <p>
 YOLOv3 🚀 is a family of object detection architectures and models pretrained on the COCO dataset, and represents <a href="https://ultralytics.com">Ultralytics</a>
