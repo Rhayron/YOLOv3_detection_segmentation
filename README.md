@@ -86,7 +86,6 @@ A segmentação é o processo de agrupar uma imagem em várias sub-regiões coer
 Em termos gerais, as técnicas de segmentação são divididas em duas categorias sendo elas, supervisionadas e não supervisionadas. O paradigma de segmentação supervisionada incorpora conhecimento prévio no processamento de imagem por meio de amostras de treinamento, assim como as redes neurais artificiais. Floresta aleatória (RF) está entre as técnicas de segmentação supervisionada. A Figura 22 mostra a estrutura de uma rede de segmentação baseada em RF. A rede é composta por quatro componentes:
 
 </a><div width="2%" align="center">
-<a href="https://arxiv.org/abs/1804.02767">
 <img src="https://github.com/Rhayron/YOLOv3_detection_segmentation/blob/main/assets/ImageSegmentation.png" width="60%"/>
 </div></a>
 
@@ -103,6 +102,52 @@ Após o treinamento, as previsões no conjunto de dados de teste, podem ser feit
 O viés no erro de aprendizado é reduzido pela média dos resultados das respectivas árvores e, embora as previsões de uma única árvore sejam altamente sensíveis ao seu conjunto de treinamento, a média das árvores individuais não é sensível, desde que as árvores não sejam correlacionadas. Se as árvores são independentes umas das outras, então o teorema do limite central garantiria a redução da variância. A floresta aleatória usa um algoritmo que seleciona um subconjunto aleatório de recursos no processo de divisão de cada candidato para reduzir a correlação de árvores em uma amostra de ensacamento (HO, 2002).
 
 Outra vantagem da RF é que é fácil de usar e requer ajuste de apenas três hiperparâmetros, ou seja, o número de árvores, o número de feições usadas em uma árvore e a taxa de amostragem para ensacamento. Além disso, os resultados de RF possuem alta precisão com estabilidade, porém, o processo interno do mesmo é uma espécie de caixa preta como em muitos modelos de deep learning.
+
+## <div>Resultados e discursões</div>
+
+Para realização do treinamento da rede neural responsável pela detecção das chaves seccionadoras foi utilizada uma base de dados contendo 2607 imagens ópticas. Os equipamentos usados durante o desenvolvimento incluem computadores para execução de softwares além da câmera térmica portátil para captura das fotos. A YOLOv3 foi treinado usando um computador portátil com acesso a uma máquina virtual da plataforma Google Colab, que disponibiliza em seu serviço em nuvem uma GPU.
+
+O banco de dados utilizado contém imagens ópticas registradas em períodos diurnos, em dias diferentes e com variações no nível de iluminação, o que possibilita uma melhor capacidade de generalização do modelo de detecção durante a etapa de treinamento. O banco de dados contém imagens ópticas de chaves seccionadoras, sendo este dividido em três subconjuntos: conjuntos de treino, validação e teste. Os dados de treinamento são usados para ajustar os parâmetros (por exemplo, os pesos de conexão entre os neurônios) do modelo. Já os dados de validação são um conjunto de exemplos usados para ajustar os hiperparâmetros (ou seja, a arquitetura) da RNA. O desempenho da rede é então avaliado por meio da função de erro utilizando o conjunto de validação que é independente do conjunto de treino. Uma vez que este procedimento pode levar a algum sobreajuste no conjunto de validação, o desempenho da rede deve ser verificado medindo seu desempenho em um terceiro conjunto independente dos dados de validação e treino, denominado conjunto de teste.
+
+Como é importante conhecer os dados com os quais se está trabalhando, foi realizado um levantamento da ocorrência de cada uma das classes, ou seja, os tipos de chaves seccionadoras ao longo do banco de dados. No Gráfico abaixo pode ser visto as distribuições das instâncias passadas para rede durante a etapa de treinamento. Como era de se esperar, observa-se que as chaves seccionadoras abertas ocorrem de maneira mais esparsa ao longo das imagens, enquanto as chaves fechadas são mais recorrentes no banco de dados, isso por que é mais difícil a ocorrência desse tipo de chave na subestação que foram capturadas as imagens para o presente projeto.
+
+</a><div width="2%" align="center">
+<img src="https://github.com/Rhayron/YOLOv3_detection_segmentation/blob/main/assets/Instancias.png" width="40%"/>
+</div></a>
+
+### Treinamento da YOLOv3
+
+Optou-se pelo treinamento do modelo de detecção das chaves seccionadoras em duas versões da YOLO, a quinta e a terceira. As versões mais antigas da YOLO, como a YOLOv3, podem fornecer desempenho de detecção semelhante e localização mais precisa dos objetos. No entanto, a velocidade de treinamento da YOLOv5 é uma grande vantagem em comparação às outras versões.
+
+Um notebook (como é chamado o algoritmo e todas suas anotações no Google Colab) foi implementado para os primeiros testes, com todos os passos necessários para treinar e validar o desempenho do modelo. O procedimento de treinamento consistiu em 300 épocas (onde, uma época consiste num ciclo de treinamento completo para determinada amostra), que levaram em torno de 24 horas para o conjunto de dados. Das 2607 imagens, 2086 foram utilizadas para treinamento e 521 no conjunto de teste. Os conjuntos de dados são separados de maneira aleatória, isso para garantir que o modelo não fique viciado e tendencioso. Para o segundo experimento, foi utilizado a terceira versão da YOLO que em seu treinamento levou cerca de 48 horas para conclusão com as mesmas 300 épocas.
+
+### Desempenho para detecção de chaves seccionadoras
+
+O Gráfico abaixo mostra os resultados da mAP obtidos a partir do treinamento dos modelos da YOLOv5 e YOLOv3. Com base nos resultados é possível observar que as duas versões tiveram desempenho bem parecidos, a única diferença fica por conta da terceira versão que conseguiu resultados melhores com menos épocas.
+
+</a><div width="2%" align="center">
+<img src="https://github.com/Rhayron/YOLOv3_detection_segmentation/blob/main/assets/map.png" width="80%"/>
+</div></a>
+
+Em termos de precisão do modelo, as versões também apresentam resultados bastante similares, ficando ambas acima dos 70% de precisão em alguns momentos, como revela o Gráfico abaixo. Com base no gráfico de precisão, o treinamento poderia ter sido interrompido antes das 150 interações, obtendo a mesma performance além de poupar recursos computacionais como o tempo de uso de GPU no Google Colab.
+
+</a><div width="2%" align="center">
+<img src="https://github.com/Rhayron/YOLOv3_detection_segmentation/blob/main/assets/precision.png" width="80%"/>
+</div></a>
+
+A Figura abaixo, mostra a matrize de confusão, onde a diagonal principal apresentou o melhor resultado que os demais pontos, o que mostra que a rede funciona de maneira adequada para as classes estipuladas. O background, que é a classe que designa o fundo das imagens, foi o que teve maior problema, pois em  67% na YOLOv3 foi considerada como Chave Seccionadora Lâmina (Fechada).
+
+</a><div width="2%" align="center">
+<img src="https://github.com/Rhayron/YOLOv3_detection_segmentation/blob/main/assets/ConfusionMatrix.png" width="60%"/>
+</div></a>
+
+A YOLO mostra um funcionamento satisfatório, apresentando detecções com mais de 80% de precisão. No entanto, em alguns casos o modelo treinado confunde outros equipamentos na subestação como chaves seccionadoras, além de apresentar certa dificuldade em detectar as chaves quando há interferências provocadas pelos raios solares.
+
+Problemas como a forte presença do sol interferindo nas detecções podem ser resolvidos corrigindo manualmente as caixas delimitadoras erradas e inserindo-as em um novo treinamento do modelo (realimentação positiva). Além disso fornecer para a rede mais exemplos de imagens onde há raios solares ajudaria a mitigar o problema.
+
+Nos testes realizados, o parâmetro de IoU foi reduzido para 0,25. Isso significa que uma caixa de detecção é considerada válida para IoU ≥ 25%. Ao considerar um limiar de IoU menor, é possível visualizar um número mais significativo de detecções inválidas, ou seja, aparecem mais exemplos de falsos positivos na análise de cada imagem.
+
+### Segmentação da imagem
 
 YOLOv3 🚀 is a family of object detection architectures and models pretrained on the COCO dataset, and represents <a href="https://ultralytics.com">Ultralytics</a>
  open-source research into future vision AI methods, incorporating lessons learned and best practices evolved over thousands of hours of research and development.
