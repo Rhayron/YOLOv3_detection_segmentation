@@ -69,7 +69,19 @@ Em vez de 5 âncoras por célula, a quantidade foi aumentada para 9, onde há 3 
 A YOLO v3 funciona no mesmo nível de outros detectores de última geração, como a RetinaNet, embora seja consideravelmente mais rápido, no benchmark COCO mAP 50. No entanto, a YOLO perde em benchmarks COCO mAP-50 com um valor mais alto de IoU, usado para filtrar o número de caixas detectadas.
 </p>
 
+## <div>Random Forest</div>
+Florestas aleatórias (RF – Random Forest) de Breiman (2001) é um algoritmo de aprendizado de máquina supervisionado, onde são empregados para aprender uma função que combina um conjunto de variáveis, com o objetivo de prever uma outra variável.
+</p>
+Dependendo do tipo das variáveis dependentes, os algoritmos de aprendizagem supervisionados podem ser classificados em algoritmos de regressão e classificação. Nos algoritmos de regressão, a variável dependente é quantitativa, enquanto nos algoritmos de classificação, a variável dependente é qualitativa (Hastie et al. pp. 9-11, 2015).
+</p>
 
+### <div>Árvores de classificação e regressão</div>
+Árvores de classificação e regressão (CARTs - Classification and Regression Trees) são métodos para particionar o espaço de variáveis de entrada com base em um conjunto de regras em uma árvore de decisão, onde cada nó se divide de acordo com uma regra de decisão (como exemplificado na Figura abaixo). Desta forma, o espaço variável é particionado em subconjuntos e o modelo é ajustado a cada subconjunto.
+</p>
+
+</a><div width="2%" align="center">
+<img src="https://github.com/Rhayron/YOLOv3_detection_segmentation/blob/main/assets/CART.png" width="60%"/>
+</div></a>
 
 </p>
 YOLOv3 🚀 is a family of object detection architectures and models pretrained on the COCO dataset, and represents <a href="https://ultralytics.com">Ultralytics</a>
