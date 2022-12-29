@@ -1,7 +1,5 @@
 # <div align="center">YOLOv3 & Random Forest aplicadas no monitoramento de equipamentos em subestações de energia elétrica</div>
 
-<a href="https://ultralytics.com">Ultralytics</a>
-
 Com o constante crescimento do sistema elétrico, se torna cada vez mais importante a eficiência no método de execução das manutenções nesses ambientes. A inspeção termográfica é uma dessas alternativas, pois é eficaz para a previsão de falhas nos equipamentos das subestações de energia. Porém, a segurança dos operadores e a necessidade de um grau de experiência elevado, faz com que a atividade se torne muito dispendiosa. A ideia central do presente trabalho é propor uma automatização parcial do processo das inspeções termográficas de subestações de energia elétrica utilizando a YOLOv3 e o ensemble floresta aleatória para detecção de equipamentos presentes em subestação de energia elétrica. Utilizando um banco de dados de imagens de chaves seccionadoras de uma subestação de energia elétrica, a tecnologia pode identificar e segmentar regiões de aquecimento de maneira satisfatória os equipamentos e com isso pode auxiliar as concessionárias de energia a tomarem decisões referentes à manutenção preditiva. A rede neural alcançou níveis de precisão acima dos 70%, o que mostra um desempenho satisfatório.
 
 ## <div>Introdução</div>
