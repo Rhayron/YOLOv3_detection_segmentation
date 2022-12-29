@@ -175,7 +175,7 @@ Do ponto de vista da inspeção elétrica, as medições termográficas têm uti
 <summary>Tutorials</summary>
 
 * [Train Test](https://github.com/Rhayron/YOLOv3_detection_segmentation/blob/main/TrainTest.ipynb)&nbsp; 🚀 RECOMMENDED
-* [Train Custom RF model]()&nbsp; 🌟 NEW
+* [Demonstration of image detection and segmentation](https://github.com/Rhayron/YOLOv3_detection_segmentation/blob/main/YOLOv3_detection_segmentation.ipynb)&nbsp; 🌟 TOP
 
 </details>
 
