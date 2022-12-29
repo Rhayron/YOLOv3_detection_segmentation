@@ -1,5 +1,7 @@
 # <div align="center">YOLOv3 & Random Forest aplicadas no monitoramento de equipamentos em subestações de energia elétrica</div>
 
+<a href="https://ultralytics.com">Ultralytics</a>
+
 Com o constante crescimento do sistema elétrico, se torna cada vez mais importante a eficiência no método de execução das manutenções nesses ambientes. A inspeção termográfica é uma dessas alternativas, pois é eficaz para a previsão de falhas nos equipamentos das subestações de energia. Porém, a segurança dos operadores e a necessidade de um grau de experiência elevado, faz com que a atividade se torne muito dispendiosa. A ideia central do presente trabalho é propor uma automatização parcial do processo das inspeções termográficas de subestações de energia elétrica utilizando a YOLOv3 e o ensemble floresta aleatória para detecção de equipamentos presentes em subestação de energia elétrica. Utilizando um banco de dados de imagens de chaves seccionadoras de uma subestação de energia elétrica, a tecnologia pode identificar e segmentar regiões de aquecimento de maneira satisfatória os equipamentos e com isso pode auxiliar as concessionárias de energia a tomarem decisões referentes à manutenção preditiva. A rede neural alcançou níveis de precisão acima dos 70%, o que mostra um desempenho satisfatório.
 
 ## <div>Introdução</div>
@@ -149,7 +151,39 @@ Nos testes realizados, o parâmetro de IoU foi reduzido para 0,25. Isso signific
 
 ### Segmentação da imagem
 
-YOLOv3 🚀 is a family of object detection architectures and models pretrained on the COCO dataset, and represents <a href="https://ultralytics.com">Ultralytics</a>
- open-source research into future vision AI methods, incorporating lessons learned and best practices evolved over thousands of hours of research and development.
-</p>
+Para realizar a segmentação das imagens térmicas, primeiro é preciso processar as imagens óticas e térmicas obtidas pela câmera, uma vez que as lentes ótica e térmica estão em perpectivas diferentes nos dois tipos de imagens. Dessa forma uma caixa delimitadora detectada pela YOLOv3 na imagem ótica apresentaria coordenadas diferentes na imagem térmica.
+
+Utilizando as técnicas de homografia é possível transformar a imagem térmica, de forma a permanecerem ambas imagens com mesma perspectiva. Assim, é possível identificar as coordenadas homográficas entre as duas imagens e obter ambas imagens no plano de perspectiva.Com as mesmas coordenadas homográficas obtidas do processo de calibração, é possível alinhas os termogramas das chaves seccionadoras com as imagens ópticas.Após colocar o termograma no mesmo plano de perspectiva é possível detectar objetos na imagem IR a partir das bounding boxes resultantes do processo de detecção por meio da YOLOv3 na imagem óptica.
+
+Posteriormente, é utilizado o Random Forest para a segmentação dos pontos quentes dentro das bounding boxes que foram identificadas anteriormente com os equipamentos presentes na subestação. A partir das coordenadas das caixas delimitadoras na imagem IR, é feito um recorte na imagem das chaves seccionadoras detectadas e, posteriormente, aplicado o algoritmo de Random Forest, para a segmentação da região de aquecimento no recorte da imagem IR. 
+
+O algoritmo de RF não consegue boa precisão de segmentação para os casos onde há pouca variação relativa de temperatura na imagem. No geral, a rede YOLO apresentou bons resultados de detecção das chaves seccionadoras, assim como bons resultados de segmentação dos termogramas. Com esses resultados, é possível automatizar o processo de inspeção desses equipamentos de subestações e tornar, assim, um processo mais confiável, seguro e robusto como um todo.
+
+## <div>Conclusão</div>
+
+Neste trabalho, foram apresentados alguns conceitos envolvendo a aplicação de conceitos de visão computacional em inspeções de rotina visando detectar falhas em equipamentos elétricos. Tais ferramentas foram unidas para formar um procedimento genérico e inteligente de segmentação de pontos quentes em chaves seccionadoras presentes numa SE, através da utilização de uma RNA para de detecção automáticas das chaves nas imagens óticas, aliada a segmentação de regiões de sobreaquecimentos nas imagens térmicas.
+
+Deve-se ressaltar que os algoritmos envolvidos em tal procedimento, especialmente para segmentação de imagens e identificação de alvos, não se dedicam à análise e diagnóstico dos equipamentos em si, mas apenas um apontamento nas imagens infravermelhas das regiões de aquecimento que podem ser ou não provenientes de uma falha.
+
+Após um exaustivo trabalho de anotação das imagens para treinamento da RNA, foi possível alcançar bons resultados com o treinamento da rede neural YOLOv3 para a identificação dos quatro tipos de chaves seccionadoras. Através da matriz de confusão, pode-se perceber que o modelo alcançou índices maiores que 85% para todos os tipos de chaves seccionadoras usadas no treinamento. Já no processo de segmentação de imagem, foram obtidos resultados preliminares satisfatórios com a utilização do algoritmo de floresta aleatória, comprovando sua eficácia e capacidade de utilização para imagens térmicas.
+
+Para trabalhos futuros, há a possibilidades de aumentar o número de imagens do banco de dados, o que pode ajudar a melhorar os resultados obtidos pela YOLO, principalmente para os casos onde há forte interferência de raios solares. Além disso, pode-se desenvolver um sistema automático de captação de imagens utilizando câmeras móveis dentro da subestação elétrica, fornecendo um banco contínuo e atualizado de imagens da situação da SE. Dessa forma, um operador do sistema poderia analisar em tempo real o comportamento dos equipamentos, visto que a YOLO consegue atingir altas taxas de FPS nas detecções.
+
+Do ponto de vista da inspeção elétrica, as medições termográficas têm utilidades indiscutíveis. Em vez de esperar as falhas do equipamento, deve-se optar por uma manutenção preditiva. A implementação do presente trabalho em um ambiente real, pode auxiliar técnicos menos experientes, visto que a rede neural faz a parte da detecção dos objetos e o ensemble Random Forest segmenta dos pontos quentes das imagens IR, restando ao técnico a avaliação e diagnóstico da temperatura resultante da segmentação de cada equipamento.
+
+<details open>
+<summary>Tutorials</summary>
+
+* [Train Test](https://github.com/Rhayron/YOLOv3_detection_segmentation/blob/main/TrainTest.ipynb)&nbsp; 🚀 RECOMMENDED
+* [Train Custom RF model]()&nbsp; 🌟 NEW
+
+</details>
+
+## <div>Environments</div>
+
+<div align="center">
+    <a href="https://colab.research.google.com/drive/1LEuVVoTscsaqlbqM21sDZWgRpuCajSkb?authuser=2">
+        <img src="https://github.com/Rhayron/YOLOv3_detection_segmentation/blob/main/assets/logo-colab-small.png" width="15%"/>
+    </a>
+</div>
 
